@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "homework-code-review-agent"
+version = "0.2.0"
+description = "面向 Python 小型项目的命令行代码审查 Agent"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "openai>=1.30,<3",
+    "python-dotenv>=1.0,<2",
+    "httpx[socks]>=0.27,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<10",
+    "httpx>=0.27,<1",
+]
+web = [
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.30,<1",
+]
+
+[project.scripts]
+code-review-agent = "code_review_agent.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["code_review_agent*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

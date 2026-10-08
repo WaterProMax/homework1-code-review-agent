@@ -1,0 +1,89 @@
+[
+  {
+    "name": "可变位置参数",
+    "source": "def f(x=[]):\n    return x\n",
+    "expected": [
+      "mutable-default"
+    ]
+  },
+  {
+    "name": "可变关键字参数",
+    "source": "def f(*, options={}):\n    return options\n",
+    "expected": [
+      "mutable-default"
+    ]
+  },
+  {
+    "name": "安全默认参数",
+    "source": "def f(x=None):\n    if x is None:\n        x=[]\n    return x\n",
+    "expected": []
+  },
+  {
+    "name": "整除与取余零",
+    "source": "x=2//0\ny=3%0\n",
+    "expected": [
+      "div-zero",
+      "div-zero"
+    ]
+  },
+  {
+    "name": "合法除法",
+    "source": "x=2/1\n",
+    "expected": []
+  },
+  {
+    "name": "裸异常捕获",
+    "source": "try:\n    value=1\nexcept:\n    pass\n",
+    "expected": [
+      "bare-except"
+    ]
+  },
+  {
+    "name": "命名异常被忽略",
+    "source": "try:\n    value=1\nexcept Exception as error:\n    pass\n",
+    "expected": [
+      "swallowed-exception"
+    ]
+  },
+  {
+    "name": "正常文件上下文",
+    "source": "with open('x') as file:\n    text=file.read()\n",
+    "expected": []
+  },
+  {
+    "name": "未关闭文件",
+    "source": "file=open('x')\ntext=file.read()\n",
+    "expected": [
+      "open-without-with"
+    ]
+  },
+  {
+    "name": "字符串不应当作调用",
+    "source": "hint='open(fake)'\n# open('x')\n",
+    "expected": []
+  },
+  {
+    "name": "未使用导入",
+    "source": "import math\nvalue=1\n",
+    "expected": [
+      "unused-import"
+    ]
+  },
+  {
+    "name": "合法future导入",
+    "source": "from __future__ import annotations\nvalue=1\n",
+    "expected": []
+  },
+  {
+    "name": "使用导入",
+    "source": "import math\nvalue=math.sqrt(4)\n",
+    "expected": []
+  },
+  {
+    "name": "语法错误",
+    "source": "def broken(:\n    pass\n",
+    "expected": [
+      "syntax-error"
+    ]
+  }
+]

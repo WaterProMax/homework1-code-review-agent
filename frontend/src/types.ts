@@ -1,0 +1,10 @@
+export type FileItem = { path: string; size: number; available: boolean; reason: string };
+export type Project = { id: string; name: string; root: string; default_path: string | null; files: FileItem[] };
+export type Source = { path: string; source: string; version: string; size: number };
+export type Finding = { finding_id: string; path: string; line: number; end_line: number; title: string; severity: string; evidence: string; suggestion: string; source: string; confidence: string; status: string; verification: string; verification_note?: string; historical?: boolean };
+export type Event = { seq: number; time: string; kind: string; text: string };
+export type Run = { id: string; created_at: string; status: string; paths: string[]; summary: string; findings: Finding[]; errors: Record<string,string>; sources: Record<string,Source>; replies: Record<string,string>; events: Event[]; elapsed_seconds: number; changes: {finding_id:string;state:string;title:string}[] };
+export type Conversation = { finding_id: string; question: string; reply: string; created_at: string; partial: boolean };
+export type Session = { id: string; project_id: string; runs: string[]; history?: Run[]; conversation: Conversation[]; memory?: string };
+export type Preview = { finding_id: string; path: string; version: string; before: string; after: string; diff: string; explanation: string };
+export type Job = { id: string; kind: string; status: string; events: Event[]; completed_files: number; total_files: number; error: string|null; result: null | {run_id?:string;preview?:Preview;reply?:string} };
